@@ -2,7 +2,7 @@ import {parser} from "./syntax.grammar"
 import {LRLanguage, LanguageSupport, indentNodeProp, foldNodeProp, foldInside, delimitedIndent} from "@codemirror/language"
 import {styleTags, tags as t} from "@codemirror/highlight"
 
-export const EXAMPLELanguage = LRLanguage.define({
+export const simplebooleanLanguage = LRLanguage.define({
   parser: parser.configure({
     props: [
       indentNodeProp.add({
@@ -25,6 +25,6 @@ export const EXAMPLELanguage = LRLanguage.define({
   }
 })
 
-export function EXAMPLE() {
-  return new LanguageSupport(EXAMPLELanguage)
+export function simpleboolean() {
+  return new LanguageSupport(simplebooleanLanguage)
 }
