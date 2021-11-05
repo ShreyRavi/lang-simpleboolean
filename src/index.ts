@@ -1,6 +1,7 @@
 import {parser} from "./syntax.grammar"
 import {LRLanguage, LanguageSupport, indentNodeProp, foldNodeProp, foldInside, delimitedIndent} from "@codemirror/language"
 import {styleTags, tags as t} from "@codemirror/highlight"
+import {completeFromList} from "@codemirror/autocomplete"
 
 export const simplebooleanLanguage = LRLanguage.define({
   parser: parser.configure({
@@ -25,6 +26,14 @@ export const simplebooleanLanguage = LRLanguage.define({
   languageData: {
     commentTokens: {line: ";"}
   }
+})
+
+export const exampleCompletion = simplebooleanLanguage.data.of({
+  autocomplete: completeFromList([
+    {label: "AND", type: "keyword"},
+    {label: "OR", type: "keyword"},
+    {label: "NOT", type: "keyword"}
+  ])
 })
 
 export function simpleboolean() {
