@@ -12,6 +12,7 @@ export const simplebooleanLanguage = LRLanguage.define({
         Application: foldInside
       }),
       styleTags({
+        "AND OR NOT": t.operatorKeyword,
         Operator: t.operator,
         Identifier: t.variableName,
         Boolean: t.bool,
