@@ -1,4 +1,6 @@
-@top Program { expression* }
+@precedence { and @left, or @left, not @left }
+
+@top Query { expression* }
 
 @skip { space | LineComment }
 
@@ -6,10 +8,18 @@ expression {
   Identifier |
   String |
   Boolean |
+  BooleanExpression |
   Application { "(" expression* ")" }
 }
 
+BooleanExpression {
+  expression !and "AND" expression |
+  expression !or "OR" expression |
+  expression !not "NOT" expression
+}
+
 @tokens {
+
   Identifier { $[a-zA-Z_\-0-9]+ }
 
   String { '"' (!["\\] | "\\" _)* '"' }
@@ -21,6 +31,7 @@ expression {
   space { $[ \t\n\r]+ }
 
   "(" ")"
+  @precedence { "AND", "OR", "NOT", Identifier, String, Boolean, LineComment, space }
 }
 
 @detectDelim

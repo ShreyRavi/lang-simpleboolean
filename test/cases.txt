@@ -1,3 +1,10 @@
+# Operators
+six AND seven OR eight
+
+==>
+
+Query(BooleanExpression(BooleanExpression(Identifier,Identifier),Identifier))
+
 # Booleans
 
 #t
@@ -5,7 +12,7 @@
 
 ==>
 
-Program(Boolean, Boolean)
+Query(Boolean, Boolean)
 
 # Identifiers
 
@@ -14,7 +21,7 @@ Two_Three
 
 ==>
 
-Program(Identifier, Identifier)
+Query(Identifier, Identifier)
 
 # Strings
 
@@ -23,7 +30,7 @@ Program(Identifier, Identifier)
 
 ==>
 
-Program(String, String)
+Query(String, String)
 
 # Applications
 
@@ -34,7 +41,7 @@ Program(String, String)
 
 ==>
 
-Program(Application(
+Query(Application(
   Identifier,
   Application(Identifier, Boolean, Application(
     Identifier, Application(Identifier, String, String, String)))
