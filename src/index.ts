@@ -41,6 +41,6 @@ export const simpleBooleanCompletion = (completeFromListParameter: Completion[] 
   ]))
 })
 
-export function simpleboolean() {
+export function simpleBoolean() {
   return new LanguageSupport(simpleBooleanLanguage)
 }
