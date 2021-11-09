@@ -9,6 +9,9 @@ expression {
   String |
   Boolean |
   BooleanExpression |
+  "AND" | 
+  "OR" | 
+  "NOT" |
   Application { "(" expression* ")" }
 }
 
@@ -19,6 +22,11 @@ BooleanExpression {
 }
 
 @tokens {
+  "AND"
+
+  "OR"
+
+  "NOT"
 
   Identifier { $[a-zA-Z_\-0-9]+ }
 

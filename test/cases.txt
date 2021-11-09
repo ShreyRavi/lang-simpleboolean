@@ -3,7 +3,7 @@ six AND seven OR eight
 
 ==>
 
-Query(BooleanExpression(BooleanExpression(Identifier,Identifier),Identifier))
+Query(BooleanExpression(BooleanExpression(Identifier, AND, Identifier), OR, Identifier))
 
 # Booleans
 
@@ -46,3 +46,27 @@ Query(Application(
   Application(Identifier, Boolean, Application(
     Identifier, Application(Identifier, String, String, String)))
   Application(Identifier, String)))
+
+# AND
+
+AND
+
+==>
+
+Query(AND)
+
+# OR
+
+OR
+
+==>
+
+Query(OR)
+
+# NOT
+
+NOT
+
+==>
+
+Query(NOT)
