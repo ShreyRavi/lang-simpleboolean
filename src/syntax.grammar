@@ -2,7 +2,7 @@
 
 @top Query { expression* }
 
-@skip { space | LineComment }
+@skip { Space | LineComment }
 
 expression {
   Identifier |
@@ -12,6 +12,8 @@ expression {
   "AND" | 
   "OR" | 
   "NOT" |
+  Space |
+  LineComment |
   Application { "(" expression* ")" }
 }
 
@@ -36,10 +38,10 @@ BooleanExpression {
 
   LineComment { ";" ![\n]* }
 
-  space { $[ \t\n\r]+ }
+  Space { $[ \t\n\r]+ }
 
   "(" ")"
-  @precedence { "AND", "OR", "NOT", Identifier, String, Boolean, LineComment, space }
+  @precedence { "AND", "OR", "NOT", Identifier }
 }
 
 @detectDelim
