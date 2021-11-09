@@ -2,7 +2,7 @@
 
 @top Query { expression* }
 
-@skip { Space | LineComment }
+@skip { LineComment }
 
 expression {
   Identifier |
@@ -13,8 +13,9 @@ expression {
   "OR" | 
   "NOT" |
   Space |
-  LineComment |
-  Application { "(" expression* ")" }
+  Tab |
+  CarriageReturn |
+  Application
 }
 
 BooleanExpression {
@@ -22,6 +23,8 @@ BooleanExpression {
   expression !or "OR" expression |
   expression !not "NOT" expression
 }
+
+Application { "(" expression* ")" }
 
 @tokens {
   "AND"
@@ -38,10 +41,15 @@ BooleanExpression {
 
   LineComment { ";" ![\n]* }
 
-  Space { $[ \t\n\r]+ }
+  Space { $[ ]+ }
+
+  Tab { $[\t]+ }
+
+  CarriageReturn { $[\n\r]+ }
 
   "(" ")"
-  @precedence { "AND", "OR", "NOT", Identifier }
+  
+  @precedence { "AND", "OR", "NOT", "(", ")", String, Boolean, Space, Tab, CarriageReturn,  Identifier }
 }
 
 @detectDelim

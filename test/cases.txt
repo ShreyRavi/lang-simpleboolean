@@ -3,7 +3,7 @@ six AND seven OR eight
 
 ==>
 
-Query(BooleanExpression(BooleanExpression(Identifier, AND, Identifier), OR, Identifier))
+Query(Identifier,BooleanExpression(Space,AND,Space),Identifier,BooleanExpression(Space,OR,Space),Identifier)
 
 # Booleans
 
@@ -12,7 +12,7 @@ Query(BooleanExpression(BooleanExpression(Identifier, AND, Identifier), OR, Iden
 
 ==>
 
-Query(Boolean, Boolean)
+Query(Boolean,CarriageReturn,Boolean)
 
 # Identifiers
 
@@ -21,7 +21,7 @@ Two_Three
 
 ==>
 
-Query(Identifier, Identifier)
+Query(Identifier,CarriageReturn,Identifier)
 
 # Strings
 
@@ -30,7 +30,7 @@ Query(Identifier, Identifier)
 
 ==>
 
-Query(String, String)
+Query(String,CarriageReturn,String)
 
 # Applications
 
@@ -41,11 +41,11 @@ Query(String, String)
 
 ==>
 
-Query(Application(
-  Identifier,
-  Application(Identifier, Boolean, Application(
-    Identifier, Application(Identifier, String, String, String)))
-  Application(Identifier, String)))
+Query(
+  Application(
+    "(",Identifier,CarriageReturn,Space,Application("(",Identifier,Space,Boolean,CarriageReturn,Space,Application("(",Identifier,Space,Application("(",Identifier,Space,String,Space,String,Space,String,")"),")"),")"),CarriageReturn,Space,Application("(",Identifier,Space,String,")"),")"
+  )
+)
 
 # AND
 
