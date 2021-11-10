@@ -1,7 +1,7 @@
 import {parser} from "./syntax.grammar"
 import {LRLanguage, LanguageSupport, indentNodeProp, foldNodeProp, foldInside, delimitedIndent} from "@codemirror/language"
 import {styleTags, tags as t} from "@codemirror/highlight"
-import {completeFromList, Completion} from "@codemirror/autocomplete"
+import {completeFromList, Completion, autocompletion} from "@codemirror/autocomplete"
 
 export const simpleBooleanLanguage = LRLanguage.define({
   parser: parser.configure({
@@ -34,13 +34,14 @@ export const simpleBooleanLanguage = LRLanguage.define({
  * @param completeFromListParameter Completion[]
  * @returns CodeMirror autocomplete
  */
-export const simpleBooleanCompletion = (completeFromListParameter: Completion[] = []) => simpleBooleanLanguage.data.of({
-  autocomplete: completeFromList(completeFromListParameter.concat([
-    {label: "AND", type: "keyword"},
-    {label: "OR", type: "keyword"},
-    {label: "NOT", type: "keyword"}
-  ]))
-})
+export const simpleBooleanCompletion = (completeFromListParameter: Completion[]=[]) => 
+  autocompletion({
+    override: [completeFromList(completeFromListParameter.concat([
+          {label: "AND", type: "keyword"},
+          {label: "OR", type: "keyword"},
+          {label: "NOT", type: "keyword"}
+        ]))]
+  })
 
 export function simpleBoolean() {
   return new LanguageSupport(simpleBooleanLanguage)
