@@ -49,7 +49,7 @@ Application { "(" expression* ")" }
 
   "(" ")"
   
-  @precedence { "AND", "OR", "NOT", "(", ")", String, Boolean, Space, Tab, CarriageReturn,  Identifier }
+  @precedence { "AND", "OR", "NOT", "(", ")", String, Boolean, Space, Tab, CarriageReturn, Identifier }
 }
 
 @detectDelim

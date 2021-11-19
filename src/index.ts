@@ -1,7 +1,7 @@
 import {parser} from "./syntax.grammar"
 import {LRLanguage, LanguageSupport, indentNodeProp, foldNodeProp, foldInside, delimitedIndent} from "@codemirror/language"
 import {styleTags, tags as t} from "@codemirror/highlight"
-import {completeFromList, Completion, autocompletion} from "@codemirror/autocomplete"
+import {Completion, autocompletion, CompletionContext} from "@codemirror/autocomplete"
 
 export const simpleBooleanLanguage = LRLanguage.define({
   parser: parser.configure({
@@ -34,15 +34,23 @@ export const simpleBooleanLanguage = LRLanguage.define({
  * @param completeFromListParameter Completion[]
  * @returns CodeMirror autocomplete
  */
-export const simpleBooleanCompletion = (completeFromListParameter: Completion[]=[]) => 
-  autocompletion({
-    override: [completeFromList(completeFromListParameter.concat([
+export const simpleBooleanCompletion = (completeFromListParameter: Completion[]=[]) => {
+  function getCompletionsFromList(list: Completion[]) {
+    let options = list.map(o => typeof o == "string" ? { label: o } : o);
+    let [span, match] = [/\w*$/, /\w+$/];
+    return (context: CompletionContext) => {
+        let token = context.matchBefore(match);
+        return token || context.explicit ? { from: token ? token.from : context.pos, options, span } : null;
+    };
+  }
+  return autocompletion({
+    override: [getCompletionsFromList(completeFromListParameter.concat([
           {label: "AND", type: "keyword"},
           {label: "OR", type: "keyword"},
           {label: "NOT", type: "keyword"}
         ]))]
-  })
-
+  });
+}
 export function simpleBoolean() {
   return new LanguageSupport(simpleBooleanLanguage)
 }
